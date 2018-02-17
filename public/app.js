@@ -1,5 +1,5 @@
 (() => {
-	const wsButton = document.querySelector('#wsButton');
+	const getStatusButton = document.querySelector('#getStatusButton');
 	
 	const showMessage = (message) => {
     	messages.textContent += `\n${message}`;
@@ -12,8 +12,13 @@
       	: Promise.reject(new Error('Unexpected response'));
 	};
 
-  	const ws = new WebSocket(`ws://${location.host}`);
-    ws.onerror = () => showMessage('WebSocket error');
-    ws.onopen = () => showMessage('WebSocket connection established');
-    ws.onclose = () => showMessage('WebSocket connection closed');
+	const ws = new WebSocket(`ws://${location.host}`);
+  ws.onerror = () => showMessage('WebSocket error');
+  ws.onopen = () => showMessage('WebSocket connection established');
+  ws.onclose = () => showMessage('WebSocket connection closed');
+  ws.onmessage = (message)=> showMessage(message.data);
+  getStatusButton.onclick =()=>{
+      ws.send(JSON.stringify({method:'getLightStatus'}));
+  };
+
 })();
