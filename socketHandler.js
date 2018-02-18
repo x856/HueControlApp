@@ -3,15 +3,7 @@
 
 import util from 'util';
 
-import huejay from 'huejay';
-
-import config from './config/hueConfig.js';
-
 import methods from './socketMethods.js'
-
-const client = new huejay.Client(config.hueConfig);
-
-
 
 
 const socketHandler = (wss)=>{
@@ -19,7 +11,14 @@ const socketHandler = (wss)=>{
 		console.log('a user connected' );
 		ws.on('message', (message) => {
 			console.log('received: %s', util.inspect(message, false, null));
-			parseMessage(message,ws);
+			message = JSON.parse(message);
+			if(message.method in methods){
+				let method = methods[message.method];
+				method(message,ws).catch(error => {
+				    console.log('Could not find light');
+				    console.log(error.stack);
+				});
+			}	
 		});
 		ws.on('close',()=>{
 			console.log('a user disconnected');
@@ -30,11 +29,5 @@ const socketHandler = (wss)=>{
 	});
 }
 
-const parseMessage = (message,ws)=>{
-	message = JSON.parse(message);
-	if(message.method in methods){
-		methods[message.method](message,ws);
-	}	
-}
 
 module.exports = socketHandler;
