@@ -6,6 +6,7 @@
   const setLightStateRed = document.querySelector('#setLightRedButton');
   const setLightStateWhite = document.querySelector('#setLightWhiteButton');
   const setLightStateGreen = document.querySelector('#setLightGreenButton');
+  const setLightStateLav = document.querySelector('#setLightLavButton');
 
 	const showMessage = (message) => {
     	messages.textContent += `\n${message}`;
@@ -23,6 +24,7 @@
   ws.onopen = () => showMessage('WebSocket connection established');
   ws.onclose = () => showMessage('WebSocket connection closed');
   ws.onmessage = (message)=> showMessage(message.data);
+  
   getStatusButton.onclick =()=>{
       let id = document.querySelector('#lightId').value;
       ws.send(JSON.stringify(
@@ -104,6 +106,22 @@
             brightness : 254,
             hue        : 23000,
             saturation : 254,
+          }
+        }
+      ));
+
+  }
+  setLightStateLav.onclick = () =>{
+    let id = document.querySelector('#lightId').value;
+    ws.send(JSON.stringify(
+        {
+          method:'setLightState',
+          lightId: id,
+          
+          data:{
+            brightness : 190,
+            hue        : 49000,
+            saturation : 98,
           }
         }
       ));

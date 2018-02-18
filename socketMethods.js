@@ -9,7 +9,8 @@ const client = new huejay.Client(config.hueConfig);
 
 const methods = {
 	'getAllLightStatus':(message,ws)=>{
-		return client.lights.getAll().then(lights =>{
+		return client.lights.getAll()
+		.then(lights =>{
 			ws.send(JSON.stringify(lights));
 		})
 
@@ -24,7 +25,7 @@ const methods = {
 		return client.lights.getById(parseInt(message.lightId))
 		.then(light=>{
 			Object.assign(light, message.data);
-			client.lights.save(light).then(light=>{
+			return client.lights.save(light).then(light=>{
 				ws.send(JSON.stringify(light));
 			});
 		});

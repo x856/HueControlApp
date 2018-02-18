@@ -15,7 +15,7 @@ const socketHandler = (wss)=>{
 			if(message.method in methods){
 				let method = methods[message.method];
 				method(message,ws).catch(error => {
-				    console.log('Could not find light');
+					ws.send(JSON.stringify(error.message));
 				    console.log(error.stack);
 				});
 			}	
