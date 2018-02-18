@@ -1,6 +1,7 @@
 (() => {
 	const getStatusButton = document.querySelector('#getStatusButton');
-	
+	const setLightStateButton = document.querySelector('#setLightStateButton');
+  
 	const showMessage = (message) => {
     	messages.textContent += `\n${message}`;
     	messages.scrollTop = messages.scrollHeight;
@@ -18,7 +19,28 @@
   ws.onclose = () => showMessage('WebSocket connection closed');
   ws.onmessage = (message)=> showMessage(message.data);
   getStatusButton.onclick =()=>{
-      ws.send(JSON.stringify({method:'getLightStatus'}));
+      let id = document.querySelector('#lightId').value;
+      ws.send(JSON.stringify(
+        {
+          method:'getLightStatus',
+          data:{
+            lightId: id
+          }
+        }
+      ));
   };
+  setLightStateButton.onclick = ()=>{ 
+    let id = document.querySelector('#lightId').value;
+    let on = document.querySelector('#lightState').value;
+    ws.send(JSON.stringify(
+        {
+          method:'setLightState',
+          data:{
+            lightId: id,
+            on : on
+          }
+        }
+      ));
+  }
 
 })();

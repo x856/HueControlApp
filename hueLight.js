@@ -16,5 +16,16 @@ class Light {
 		    console.log(error.stack);
 		});
 	}
+	setLightState(data){
+		this.apiConnector.getById(this.id)
+		.then(light=>{
+			light.on = data.on;
+			return client.lights.save(light);
+		})
+		.catch(error => {
+		    console.log('Could not find light');
+		    console.log(error.stack);
+		});
+	}
 }
 
