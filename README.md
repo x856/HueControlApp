@@ -13,18 +13,7 @@ Installing
 
 npm install
 
-make a config directory (./config) and hue config file 
-
-./config/hueConfig.js
-
-let config = {
-	hueConfig : {
-	  host:     'Hue_BRIDGE_IP',
-	  timeout:  15000,
-	  username:'HUE_USER'
-	}
-}
-module.exports = config;
+make a config hue config file (./config/hueConfig.js)
 
 Statrting the application
 
