@@ -24,7 +24,6 @@
   ws.onopen = () => showMessage('WebSocket connection established');
   ws.onclose = () => showMessage('WebSocket connection closed');
   ws.onmessage = (message)=> showMessage(message.data);
-  document.ws = ws;
   getStatusButton.onclick =()=>{
       let id = document.querySelector('#lightId').value;
       ws.send(JSON.stringify(

@@ -4,8 +4,9 @@ import http from 'http';
 import WebSocket from 'ws';
 import SocketHandler from './socketHandler.js';
 import app from './express.js';
+import config from './config/expressConfig.js'
 
-const port = 3000;
+const port = config.port;
 
 const server = http.createServer(app);
 

@@ -2,7 +2,7 @@
 
 Hue Web App
 
-A web application to control hue lights. 
+A web application to control hue lights.
 
 Prerequisites
 
@@ -19,6 +19,7 @@ Statrting the application
 
 npm start
 
+Then open a web browser and go to http://localhost:3000/
 
 Randon notes
 
