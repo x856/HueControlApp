@@ -25,5 +25,6 @@ Randon notes
 
 hueLight.js is currently not used at all.
 
+The entire front end is really just a proof of concept. Any of the Hue light state parameters can be sent to the web socket api. 
 
 

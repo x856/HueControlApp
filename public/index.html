@@ -5,15 +5,33 @@
       <title>Express session demo</title>
   </head>
   <body>
+    <style>
+    button{
+      padding: 5px;
+      margin: 5px;
+      border-radius: 4px;
+    }
+    #message{
+      height: 400px; 
+      width:90%;
+      overflow: scroll;
+    }
+  </style>
     <h1>Hue Lights</h1>
+
+    <button id='getAllLightStatusButton'>
+      Get All Light Status
+    </button><br>
+<h3> Light Selector:</h3>
+    <label>Light Id: &nbsp;</label>
+    <select id='lightIds'>
+      
+    </select>
     <button id='getStatusButton'>
       Get Light Status
     </button>
-    <label>
-      Light Id:
-    </label>
-    <input id='lightId' />
     <br>
+    <h3>State Select Buttons: </h3>
     <button id='setLightStateButtonOn'>
       On
     </button>
@@ -27,7 +45,7 @@
     <button id='setLightWhiteButton'>White</button>
 
     <br>
-    <pre id="messages" style="height: 400px; width:90%;overflow: scroll"></pre>
+    <pre id="messages" ></pre>
     <script src="app.js"></script>
   </body>
 </html>
