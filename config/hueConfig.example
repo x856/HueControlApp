@@ -1,0 +1,8 @@
+let config = {
+	hueConfig : {
+	  host:     'Hue_BRIDGE_IP',
+	  timeout:  15000,
+	  username:'HUE_USER'
+	}
+}
+module.exports = config;

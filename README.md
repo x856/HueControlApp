@@ -11,23 +11,29 @@ A configured hue bridge with a user already created. In the future you will just
 
 Installing
 
+npm install
+
 make a config directory (./config) and hue config file 
 
 ./config/hueConfig.js
 
 let config = {
 	hueConfig : {
-	  host:     'BRIDGE_IP',
+	  host:     'Hue_BRIDGE_IP',
 	  timeout:  15000,
 	  username:'HUE_USER'
 	}
 }
 module.exports = config;
 
-Then
+Statrting the application
 
-npm install
 npm start
+
+
+Randon notes
+
+hueLight.js is currently not used at all.
 
 
 
