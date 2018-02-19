@@ -10,7 +10,7 @@ const socketHandler = (wss)=>{
 	wss.on('connection', (ws, req) => {
 		console.log('a user connected' );
 		ws.on('message', (message) => {
-			console.log('received: %s', util.inspect(message, false, null));
+			console.log('received: %s', message);
 			message = JSON.parse(message);
 			if(message.method in methods){
 				let method = methods[message.method];
@@ -18,6 +18,9 @@ const socketHandler = (wss)=>{
 					ws.send(JSON.stringify(error.message));
 				    console.log(error.stack);
 				});
+			}
+			else{
+				ws.send({'error':'unknown method'});
 			}	
 		});
 		ws.on('close',()=>{

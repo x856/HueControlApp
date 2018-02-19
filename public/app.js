@@ -24,7 +24,7 @@
   ws.onopen = () => showMessage('WebSocket connection established');
   ws.onclose = () => showMessage('WebSocket connection closed');
   ws.onmessage = (message)=> showMessage(message.data);
-  
+  document.ws = ws;
   getStatusButton.onclick =()=>{
       let id = document.querySelector('#lightId').value;
       ws.send(JSON.stringify(
@@ -35,6 +35,79 @@
           }
         }
       ));
+  };
+  setLightStateBlue.onclick = () =>{
+    let id = document.querySelector('#lightId').value;
+    ws.send(JSON.stringify(
+        {
+          method:'setLightState',
+          lightId: id,
+          data:{
+            brightness : 254,
+            hue        : 45000,
+            saturation : 254,
+          }
+        }
+      ));
+
+  };
+  setLightStateRed.onclick = () =>{
+    let id = document.querySelector('#lightId').value;
+    ws.send(JSON.stringify(
+        {
+          method:'setLightState',
+          lightId: id,
+          data:{
+            brightness : 254,
+            hue        : 65000,
+            saturation : 254,
+          }
+        }
+      ));
+
+  };
+  setLightStateWhite.onclick = () =>{
+    let id = document.querySelector('#lightId').value;
+    ws.send(JSON.stringify(
+        {
+          method:'setLightState',
+          lightId: id,
+          data:{
+            brightness : 254,
+            saturation : 0,
+          }
+        }
+      ));
+  };
+  setLightStateGreen.onclick = () =>{
+    let id = document.querySelector('#lightId').value;
+    ws.send(JSON.stringify(
+        {
+          method:'setLightState',
+          lightId: id,
+          data:{
+            brightness : 254,
+            hue        : 24000,
+            saturation : 254,
+          }
+        }
+      ));
+
+  };
+  setLightStateLav.onclick = () =>{
+    let id = document.querySelector('#lightId').value;
+    ws.send(JSON.stringify(
+        {
+          method:'setLightState',
+          lightId: id,
+          data:{
+            brightness : 190,
+            hue        : 49000,
+            saturation : 98,
+          }
+        }
+      ));
+
   };
   setLightStateButtonOn.onclick = () =>{ 
     let id = document.querySelector('#lightId').value;
@@ -47,86 +120,7 @@
           }
         }
       ));
-  }
-  setLightStateBlue.onclick = () =>{
-    let id = document.querySelector('#lightId').value;
-    ws.send(JSON.stringify(
-        {
-          method:'setLightState',
-          lightId: id,
-          
-          data:{
-            brightness : 254,
-            hue        : 46000,
-            saturation : 254,
-          }
-        }
-      ));
-
-  }
-  setLightStateRed.onclick = () =>{
-    let id = document.querySelector('#lightId').value;
-    ws.send(JSON.stringify(
-        {
-          method:'setLightState',
-          lightId: id,
-          
-          data:{
-            brightness : 254,
-            hue        : 65000,
-            saturation : 254,
-          }
-        }
-      ));
-
-  }
-  setLightStateWhite.onclick = () =>{
-    let id = document.querySelector('#lightId').value;
-    ws.send(JSON.stringify(
-        {
-          method:'setLightState',
-          lightId: id,
-          
-          data:{
-            brightness : 254,
-            saturation : 0,
-          }
-        }
-      ));
-
-  }
-  setLightStateGreen.onclick = () =>{
-    let id = document.querySelector('#lightId').value;
-    ws.send(JSON.stringify(
-        {
-          method:'setLightState',
-          lightId: id,
-          
-          data:{
-            brightness : 254,
-            hue        : 23000,
-            saturation : 254,
-          }
-        }
-      ));
-
-  }
-  setLightStateLav.onclick = () =>{
-    let id = document.querySelector('#lightId').value;
-    ws.send(JSON.stringify(
-        {
-          method:'setLightState',
-          lightId: id,
-          
-          data:{
-            brightness : 190,
-            hue        : 49000,
-            saturation : 98,
-          }
-        }
-      ));
-
-  }
+  };
   setLightStateButtonOff.onclick = () =>{ 
     let id = document.querySelector('#lightId').value;
     ws.send(JSON.stringify(
@@ -138,7 +132,5 @@
           }
         }
       ));
-  }
-
-
+  };
 })();

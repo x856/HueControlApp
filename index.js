@@ -16,3 +16,5 @@ const socketHandler = new SocketHandler(wss);
 server.listen(port, () => {
   console.log('Listening on %d', server.address().port);
 });
+
+module.exports = app;

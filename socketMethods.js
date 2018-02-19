@@ -6,7 +6,6 @@ import config from './config/hueConfig.js';
 
 const client = new huejay.Client(config.hueConfig);
 
-
 const methods = {
 	'getAllLightStatus':(message,ws)=>{
 		return client.lights.getAll()
