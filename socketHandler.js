@@ -5,28 +5,38 @@ import util from 'util';
 
 import methods from './socketMethods.js'
 
+const WebSocket = require('ws');
+
 const socketHandler = (wss)=>{
+	wss.broadcast = (data)=>{
+	  wss.clients.forEach(function each(client) {
+	    if (client.readyState === WebSocket.OPEN) {
+	      client.send(data);
+	    }
+	  });
+	};
 	wss.on('connection', (ws, req) => {
-		console.log('a user connected' );
+		const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+		console.log('a user connected from %s',ip );
 		ws.on('message', (message) => {
 			console.log('received: %s', message);
 			try{
 				message = JSON.parse(message);
 			}
 			catch(error){
-				ws.send({'error':'JSON parsing error'});
+				wss.broadcast({'error':'JSON parsing error'});
 				console.log(error.message);
 			}
 			finally{
 				if(message.method && methods.hasOwnProperty(message.method)){
 					let method = methods[message.method];
-					method(message,ws).catch(error => {
-						ws.send(JSON.stringify(error.message));
+					method(message,wss).catch(error => {
+						wss.broadcast(JSON.stringify(error.message));
 					    console.log(error.stack);
 					});
 				}
 				else{
-					ws.send(JSON.stringify({'error':'method Error'}));
+					wss.broadcast(JSON.stringify({'error':'method Error'}));
 				}	
 			}
 		});
@@ -41,3 +51,4 @@ const socketHandler = (wss)=>{
 
 
 module.exports = socketHandler;
+

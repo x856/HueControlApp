@@ -7,25 +7,25 @@ import config from './config/hueConfig.js';
 const client = new huejay.Client(config.hueConfig);
 
 const methods = {
-	'getAllLightStatus':(message,ws)=>{
+	'getAllLightStatus':(message,wss)=>{
 		return client.lights.getAll()
 		.then(lights =>{
-			ws.send(JSON.stringify(lights));
+			wss.broadcast(JSON.stringify(lights));
 		})
 
 	},
-	'getLightStatus': (message,ws)=>{
+	'getLightStatus': (message,wss)=>{
 		return client.lights.getById(parseInt(message.lightId))
 		.then(light=>{
-			ws.send(JSON.stringify(light));
+			wss.broadcast(JSON.stringify(light));
 		})
 	},
-	'setLightState':(message,ws)=>{
+	'setLightState':(message,wss)=>{
 		return client.lights.getById(parseInt(message.lightId))
 		.then(light=>{
 			Object.assign(light, message.data);
 			return client.lights.save(light).then(light=>{
-				ws.send(JSON.stringify(light));
+				wss.broadcast(JSON.stringify(light));
 			});
 		});
 	}

@@ -11,13 +11,17 @@ A configured hue bridge with a user already created. In the future you will just
 
 Installing
 
-npm install
+	npm install
 
 make a config hue config file (./config/hueConfig.js)
 
 Statrting the application
 
-npm start
+	npm start
+
+To run the application as a daemon:
+
+	forever start dist/index.js
 
 Then open a web browser and go to http://localhost:3000/
 
