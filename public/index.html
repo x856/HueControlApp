@@ -16,17 +16,24 @@
       width:90%;
       overflow: scroll;
     }
+    .lightBlock{
+      display:inline-block;
+      width:17%;
+      margin:3px;
+      text-align: center
+
+    }
   </style>
     <h1>Hue Lights</h1>
 
     <button id='getAllLightStatusButton'>
       Get All Light Status
-    </button><br>
+    </button><div id="lightShapes"></div><br>
 <h3> Light Selector:</h3>
     <label>Light Id: &nbsp;</label>
-    <select id='lightIds'>
+      <select id='lightIds'>
       
-    </select>
+      </select>
     <button id='getStatusButton'>
       Get Light Status
     </button>

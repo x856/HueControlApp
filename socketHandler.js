@@ -9,7 +9,7 @@ const WebSocket = require('ws');
 
 const socketHandler = (wss)=>{
 	wss.broadcast = (data)=>{
-	  wss.clients.forEach(function each(client) {
+	  wss.clients.forEach((client)=> {
 	    if (client.readyState === WebSocket.OPEN) {
 	      client.send(data);
 	    }
@@ -31,7 +31,7 @@ const socketHandler = (wss)=>{
 				if(message.method && methods.hasOwnProperty(message.method)){
 					let method = methods[message.method];
 					method(message,wss).catch(error => {
-						wss.broadcast(JSON.stringify(error.message));
+						wss.broadcast(JSON.stringify({error:error.message}));
 					    console.log(error.stack);
 					});
 				}
