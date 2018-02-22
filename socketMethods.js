@@ -35,6 +35,28 @@ const methods = {
 			wss.broadcast(JSON.stringify({bridges:bridges}));
 		});
 
+	},
+	'addUserToBridge':(message,wss)=>{
+		let user = new client.users.User;
+ 
+		user.deviceType = 'HueWebApp'; // Default is 'huejay'
+ 
+		return client.users.create(user)
+  		.then(user => {
+    		console.log(`New user created - Username: ${user.username}`);
+    		wss.broadcast(JSON.stringify({result:'success'}));
+  		})
+		.catch(error => {
+			if (error instanceof huejay.Error && error.type === 101) {
+			  console.log(`Link button not pressed. Try again...`);
+			  wss.broadcast(JSON.stringify({error:`Link button not pressed. Try again...`}));
+		
+			}
+			else{
+	    		console.log(error.message);
+	    		wss.broadcast(JSON.stringify({error:error.message}));
+			}
+  		});
 	}
 }
 

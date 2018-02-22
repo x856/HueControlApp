@@ -45,7 +45,7 @@
       lights.forEach(light=>{
         let shape = document.createElement('div');
         let text = document.createElement('p');
-        text.innerHTML = light.attributes.attributes.name;
+        text.innerHTML = light.attributes.attributes.name+" - "+ ((light.state.attributes.on) ? "(ON)" : "(OFF)")
         let hue = parseInt(((parseInt(light.state.attributes.hue)*360)/65536));
         let saturation = parseInt(((parseInt(light.state.attributes.sat)*100)/256));
         let brightness = parseInt(((parseInt(light.state.attributes.bri)*0)/256));
