@@ -10,14 +10,14 @@ const methods = {
 	'getAllLightStatus':(message,wss)=>{
 		return client.lights.getAll()
 		.then(lights =>{
-			wss.broadcast(JSON.stringify(lights));
+			wss.broadcast(JSON.stringify({lights:lights}));
 		})
 
 	},
 	'getLightStatus': (message,wss)=>{
 		return client.lights.getById(parseInt(message.lightId))
 		.then(light=>{
-			wss.broadcast(JSON.stringify(light));
+			wss.broadcast(JSON.stringify({lights:light}));
 		})
 	},
 	'setLightState':(message,wss)=>{
@@ -25,9 +25,16 @@ const methods = {
 		.then(light=>{
 			Object.assign(light, message.data);
 			return client.lights.save(light).then(light=>{
-				wss.broadcast(JSON.stringify(light));
+				wss.broadcast(JSON.stringify({lights:light}));
 			});
 		});
+	},
+	'searchForBridges':(message,wss)=>{
+		return huejay.discover({strategy: 'all'})
+		.then(bridges => {
+			wss.broadcast(JSON.stringify({bridges:bridges}));
+		});
+
 	}
 }
 

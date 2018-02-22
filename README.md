@@ -7,6 +7,7 @@ A web application to control hue lights.
 Prerequisites
 
 node.js - Im using version v6.11.3
+
 A configured hue bridge with a user already created. In the future you will just need the bridge and the application will be able to add a user for itself.
 
 Installing
@@ -22,6 +23,8 @@ Statrting the application
 To run the application as a daemon:
 
 	forever start dist/index.js
+
+	(you have to run 'npm run build' before the above command will work.)
 
 Then open a web browser and go to http://localhost:3000/
 

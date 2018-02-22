@@ -2,6 +2,8 @@
 
   //Array of lights
   const lights = [];
+  //Array of bridges
+  const bridges = [];
 
   //
 	const showMessage = (message) => {
@@ -22,11 +24,16 @@
     if(data.error){
 
     }
-    else if(Array.isArray(data)){
-      replaceLights(data);
+    else if(data.lights){
+      if(Array.isArray(data.lights)){
+        replaceLights(data.lights);
+      }
+      else{
+        updateLight(data.lights);
+      }
     }
-    else{
-      updateLight(data);
+    else if(data.bridges){
+      replaceBridges(data.bridges);
     }
     updateShapes();
   }
@@ -47,6 +54,29 @@
         shape.append(text);
         el.append(shape);
       })
+      let el2 = document.getElementById('bridges');
+      while (el2.firstChild) {
+        el2.removeChild(el2.firstChild);
+      }
+      bridges.forEach(bridge=>{
+        let shape = document.createElement('div');
+        let text = document.createElement('p');
+
+        let text2 = document.createElement('p');
+        text.innerHTML = bridge.id;
+        text2.innerHTML = bridge.ip;
+        shape.setAttribute('class','lightBlock');
+        shape.append(text,text2);
+        el2.append(shape);
+      })
+  }
+  const replaceBridges = (newBridges)=>{
+    while (bridges.length>0) {
+      bridges.pop();
+    }
+    newBridges.forEach(bridge=>{
+        bridges.push(bridge);
+    });
   }
   const replaceLights = (newLights)=>{
     while (lights.length>0) {
@@ -156,5 +186,8 @@
         }
     );
   };
+  document.querySelector('#getBridges').onclick = ()=>{
+    sendData('searchForBridges',{});
+  }
 
 })();
